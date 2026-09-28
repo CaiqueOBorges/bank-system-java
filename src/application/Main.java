@@ -5,39 +5,39 @@ import entities.Conta;
 
 public class Main {
 
-	public static void main(String[] args) {
-	   
-		
-		Cliente cliente1 = new Cliente("João", "11111111111");
-	    Cliente cliente2 = new Cliente("Maria", "22222222222");
+    public static void main(String[] args) {
 
-	    Conta conta1 = new Conta(1001);
-	    Conta conta2 = new Conta(1002);
+        Banco banco = new Banco();
 
-	    cliente1.adicionarConta(conta1);
-	    cliente2.adicionarConta(conta2);
+        Cliente cliente1 = new Cliente("João", "11111111111");
+        Cliente cliente2 = new Cliente("Maria", "22222222222");
 
-	    try {
+        Conta conta1 = new Conta(1001);
+        Conta conta2 = new Conta(1002);
 
-	        conta1.depositar(1000);
+        banco.adicionarCliente(cliente1);
+        banco.adicionarCliente(cliente2);
 
-	        System.out.println("Saldo conta 1: " + conta1.consultarSaldo());
-	        System.out.println("Saldo conta 2: " + conta2.consultarSaldo());
+        banco.adicionarConta(conta1);
+        banco.adicionarConta(conta2);
 
-	        conta1.sacar(200);
+        Cliente clienteEncontrado = banco.buscarCliente("11111111111");
 
-	        System.out.println("\nDepois do saque:");
-	        System.out.println("Saldo conta 1: " + conta1.consultarSaldo());
+        
+        
+        if (clienteEncontrado != null) {
+            System.out.println("Cliente encontrado: " + clienteEncontrado.getNome());
+        } else {
+            System.out.println("Cliente não encontrado.");
+        }
 
-	        conta1.transferir(conta2, 300);
+        Conta contaEncontrada = banco.buscarConta(1002);
 
-	        System.out.println("\nDepois do PIX:");
-	        System.out.println("Saldo conta 1: " + conta1.consultarSaldo());
-	        System.out.println("Saldo conta 2: " + conta2.consultarSaldo());
-
-	    } catch (Exception e) {
-	        System.out.println("Erro: " + e.getMessage());
-	    }
-	}
-
+        if (contaEncontrada != null) {
+            System.out.println("Conta encontrada: " + contaEncontrada.getNumero());
+        } else {
+            System.out.println("Conta não encontrada.");
+        }
+    }
 }
+
