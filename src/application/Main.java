@@ -3,6 +3,7 @@ package application;
 import entities.Cliente;
 import entities.Conta;
 import exception.ClienteDuplicadoException;
+import exception.ContaDuplicadaException;
 
 public class Main {
 
@@ -13,7 +14,7 @@ public class Main {
 	        Banco banco = new Banco();
 	
 	        Cliente cliente1 = new Cliente("João", "11111111111");
-	        Cliente cliente2 = new Cliente("Maria", "11111111111");
+	        Cliente cliente2 = new Cliente("Maria", "2222222222");
 	
 	        Conta conta1 = new Conta(1001);
 	        Conta conta2 = new Conta(1002);
@@ -48,6 +49,9 @@ public class Main {
 	        
 	    	}
     	catch(ClienteDuplicadoException e) {
+    		System.err.println(e.getMessage());
+    	}
+    	catch(ContaDuplicadaException e) {
     		System.err.println(e.getMessage());
     	}
     }

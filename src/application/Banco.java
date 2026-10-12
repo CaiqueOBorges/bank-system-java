@@ -6,6 +6,7 @@ import java.util.List;
 import entities.Cliente;
 import entities.Conta;
 import exception.ClienteDuplicadoException;
+import exception.ContaDuplicadaException;
 
 public class Banco {
 	
@@ -22,8 +23,13 @@ public class Banco {
 		}
 	}
 	
-	public void adicionarConta(Conta conta) {
+	public void adicionarConta(Conta conta) throws ContaDuplicadaException{
+		if (buscarConta(conta.getNumero()) != null) {
+			throw new ContaDuplicadaException("Erro: Conta duplicada");
+		}
+		else {
 		contas.add(conta);
+		}
 	}
 	
 	public Cliente buscarCliente(String cpf) {
@@ -45,9 +51,9 @@ public class Banco {
 		
 	}
 	
-	public void cadastrarConta(Cliente cliente, Conta conta) {
-		cliente.adicionarConta(conta);
+	public void cadastrarConta(Cliente cliente, Conta conta) throws ContaDuplicadaException {
 		this.adicionarConta(conta);
+		cliente.adicionarConta(conta);
 	}
 	
 }
