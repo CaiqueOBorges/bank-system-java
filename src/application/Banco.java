@@ -5,6 +5,7 @@ import java.util.List;
 
 import entities.Cliente;
 import entities.Conta;
+import exception.ClienteDuplicadoException;
 
 public class Banco {
 	
@@ -12,8 +13,13 @@ public class Banco {
 	private List<Cliente> clientes = new ArrayList<>();
 	
 	
-	public void adicionarCliente(Cliente cliente) {
+	public void adicionarCliente(Cliente cliente) throws ClienteDuplicadoException {
+		if (buscarCliente(cliente.getCpf()) != null) {
+			throw new ClienteDuplicadoException("Erro: Cliente duplicado");
+		}
+		else {
 		clientes.add(cliente);
+		}
 	}
 	
 	public void adicionarConta(Conta conta) {
