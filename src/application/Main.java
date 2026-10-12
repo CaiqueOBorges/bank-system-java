@@ -14,15 +14,17 @@ public class Main {
 
         Conta conta1 = new Conta(1001);
         Conta conta2 = new Conta(1002);
-
+        
+        
         banco.adicionarCliente(cliente1);
+        banco.cadastrarConta(cliente1, conta1);
+        
         banco.adicionarCliente(cliente2);
+        banco.cadastrarConta(cliente2, conta2);
 
-        banco.adicionarConta(conta1);
-        banco.adicionarConta(conta2);
-
-        Cliente clienteEncontrado = banco.buscarCliente("11111111111");
-
+        Cliente clienteEncontrado = banco.buscarCliente("11111111111");   
+        Conta contaEncontrada = banco.buscarConta(1001);
+        
         
         
         if (clienteEncontrado != null) {
@@ -31,7 +33,6 @@ public class Main {
             System.out.println("Cliente não encontrado.");
         }
 
-        Conta contaEncontrada = banco.buscarConta(1002);
 
         if (contaEncontrada != null) {
             System.out.println("Conta encontrada: " + contaEncontrada.getNumero());

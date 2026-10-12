@@ -39,4 +39,9 @@ public class Banco {
 		
 	}
 	
+	public void cadastrarConta(Cliente cliente, Conta conta) {
+		cliente.adicionarConta(conta);
+		this.adicionarConta(conta);
+	}
+	
 }
