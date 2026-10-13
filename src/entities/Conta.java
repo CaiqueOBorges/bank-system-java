@@ -6,6 +6,7 @@ import java.util.List;
 
 import enums.TipoTransacao;
 import exception.SaldoInsuficienteException;
+import exception.TransferenciaInvalidaException;
 import exception.ValorInvalidoException;
 
 public class Conta {
@@ -84,7 +85,7 @@ public class Conta {
 	
 	
 	
-	public void transferir(Conta contaDestino, double valor) throws SaldoInsuficienteException, ValorInvalidoException {
+	public void transferir(Conta contaDestino, double valor) throws SaldoInsuficienteException, ValorInvalidoException, TransferenciaInvalidaException {
 		
 		if (valor <= 0) {
 			throw new ValorInvalidoException("Valor inserido é invalido");
@@ -92,6 +93,10 @@ public class Conta {
 		
 		else if(valor > saldo) {
 			throw new SaldoInsuficienteException("Saldo insuficiente");
+		}
+		
+		else if(contaDestino.getNumero().equals(this.getNumero())) {
+			throw new TransferenciaInvalidaException("Transferencia Invalida");
 		}
 		
 		
@@ -110,5 +115,14 @@ public class Conta {
 		contaDestino.transacoes.add(transacao);
 		
 	}
-
+	
+	
+	
+	
+	
+	public List<Transacao> historicoTransacoes() {
+		return transacoes;
+	}
+	
+	
 }
