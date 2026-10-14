@@ -33,7 +33,7 @@ public class Main {
 	        	
 		        switch (escolha) {
 		        case 1:
-		        	System.out.println("Você escolheu: Consultar Saldo");
+		        	System.out.println("\nVocê escolheu: Consultar Saldo");
 		        	System.out.printf("Seu saldo é de: %.2f%n", conta1.consultarSaldo());
 		        	
 		        	break;
@@ -44,17 +44,24 @@ public class Main {
 		        	
 		        	
 		        case 2:
+		        	
+		        	boolean depositoRealizado = false;
 		        	System.out.println("Você escolheu: Depositar");
 		        	System.out.printf("Quanto você quer depositar? ");
 		        	double deposito = sc.nextDouble();
 		        	
-		        	while (deposito <= 0) {
-		        		System.out.println("\nValor invalido. Insira um valor acima de 0");
-			        	System.out.println("Quanto você quer depositar?\n");
-			        	deposito = sc.nextDouble();
+		        	
+		        	while (!depositoRealizado) {
+		        		try {
+		        			conta1.depositar(deposito);
+		        			depositoRealizado = true;
+		        		}catch(ValorInvalidoException e) {
+		        			System.out.println("\n" + e.getMessage());
+		        			System.out.printf("Quanto você quer depositar? ");
+		        			deposito = sc.nextDouble();
+		        		}
 		        	}
 		        	
-		        	conta1.depositar(deposito);
 		        	break;
 		        	
 		        	
@@ -75,24 +82,29 @@ public class Main {
 		        	
 		        	
 		        case 4:
+		        	
+		        	boolean saqueRealizado = false;
 		        	System.out.println("Você escolheu: Sacar");
 		        	System.out.printf("Insira o valor de Saque: R$");
 		        	double saque = sc.nextDouble();
 		        	
-		        	while (saque <= 0 || saque > conta1.getSaldo()){
-			        	if (saque <=0){
-			        		System.out.println("\nValor inserido é invalido");
-				        	System.out.printf("Insira o valor de Saque: R$");
+		        	
+		        	while (!saqueRealizado) {
+			        	try {
+			        		conta1.sacar(saque);
+			        		saqueRealizado = true;
+			        	}catch(ValorInvalidoException e) {
+			            	System.out.println("\n" + e.getMessage());
+			            	System.out.printf("Insira o valor de Saque: R$ ");
 				        	saque = sc.nextDouble();
-			        	}
-			        	else if(saque > conta1.getSaldo()) {
-			        		System.out.println("\nSaldo insuficiente");
-				        	System.out.printf("Insira o valor de Saque: R$");
-				        	saque = sc.nextDouble();
-			        	}
+			            }
+			            catch(SaldoInsuficienteException e) {
+			            	System.out.println("\n" + e.getMessage());
+			            	System.out.printf("Insira o valor de Saque: R$ ");
+				            saque = sc.nextDouble();
+			            }
 		        	}
 		        	
-		        	conta1.sacar(saque);
 		        	break;
 		        	
 		        	
@@ -105,6 +117,10 @@ public class Main {
 		        	break;
 		        	}
 		        
+		        
+		        
+		        
+		        
 		        System.out.println("\nEscolha uma opção: \n1- Consultar Saldo \n2- Depositar \n3- Consultar extrato \n4- Sacar \n0- Sair");
 	        	escolha = sc.nextInt();
 	        }
@@ -115,12 +131,6 @@ public class Main {
 	    	sc.close();
 	    }
     	catch(ContaDuplicadaException e) {
-    		System.out.println(e.getMessage());
-    	}
-    	catch(ValorInvalidoException e) {
-    		System.out.println(e.getMessage());
-    	}
-    	catch(SaldoInsuficienteException e) {
     		System.out.println(e.getMessage());
     	}
     }
