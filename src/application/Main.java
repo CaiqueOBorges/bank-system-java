@@ -25,7 +25,7 @@ public class Main {
 	    	Scanner sc = new Scanner(System.in);
 	
 	        System.out.printf("Bem vindo %s!", cliente1.getNome());
-	        System.out.println("\nEscolha uma opção: \n1- Consultar Saldo \n2- Depositar \n3- Consultar extrato \n4- Sacar \n0- Sair");
+	        exibirMenu();
 	        
 	       int escolha = 0;
 	        
@@ -135,7 +135,7 @@ public class Main {
 		        
 		        
 		        
-			        System.out.println("\nEscolha uma opção: \n1- Consultar Saldo \n2- Depositar \n3- Consultar extrato \n4- Sacar \n0- Sair");
+			        exibirMenu();
 			        
 			        while (!sc.hasNextInt()){
 			        	System.out.println("Digite um numero inteiro.");
@@ -167,5 +167,9 @@ public class Main {
     	
 		return sc.nextDouble();
 
+    }
+    
+    private static void exibirMenu() {
+    	System.out.println("\nEscolha uma opção: \n1- Consultar Saldo \n2- Depositar \n3- Consultar extrato \n4- Sacar \n0- Sair");
     }
 }
