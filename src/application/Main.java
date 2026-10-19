@@ -7,6 +7,7 @@ import entities.Conta;
 import entities.Transacao;
 import exception.ContaDuplicadaException;
 import exception.SaldoInsuficienteException;
+import exception.TransferenciaInvalidaException;
 import exception.ValorInvalidoException;
 
 public class Main {
@@ -19,6 +20,10 @@ public class Main {
 			Cliente cliente1 = new Cliente("Joao", "1111111111");
 			Conta conta1 = new Conta(1001);
 			banco.cadastrarConta(cliente1, conta1);
+			
+			Cliente cliente2 = new Cliente("Maria", "22222222222");
+			Conta conta2 = new Conta(1002);
+			banco.cadastrarConta(cliente2, conta2);
 
 			Scanner sc = new Scanner(System.in);
 
@@ -52,6 +57,11 @@ public class Main {
 
 				case 4:
 					realizarSaque(conta1, sc);
+					break;
+					
+				case 5:
+					
+					realizarPix(conta1, conta2, sc);
 					break;
 
 				default:
@@ -101,7 +111,7 @@ public class Main {
 
 	private static void exibirMenu() {
 		System.out.println(
-				"\nEscolha uma opção: \n1- Consultar Saldo \n2- Depositar \n3- Consultar extrato \n4- Sacar \n0- Sair");
+				"\nEscolha uma opção: \n1- Consultar Saldo \n2- Depositar \n3- Consultar extrato \n4- Sacar \n5- Transferir via PIX \n0- Sair");
 	}
 	
 	private static void realizarDeposito(Conta conta, Scanner sc) {
@@ -144,6 +154,30 @@ public class Main {
 				System.out.printf("Insira o valor de Saque: R$ ");
 
 				saque = lerDouble(sc);
+			}
+		}
+	}
+	private static void realizarPix(Conta origem, Conta destino, Scanner sc) {
+		boolean transferenciaRealizada = false;
+		System.out.println("Insira um valor para transferencia: ");
+		double transferencia = lerDouble(sc);
+		
+		while(!transferenciaRealizada) {
+			try {
+				origem.transferir(destino, transferencia);
+				transferenciaRealizada = true;
+			}catch(ValorInvalidoException e) {
+				System.out.println("\n" + e.getMessage());
+				System.out.println("Insira um valor valido: ");
+				transferencia = lerDouble(sc);
+			}catch(SaldoInsuficienteException e) {
+				System.out.println("\n" + e.getMessage());
+				System.out.println("Saldo insuficiente: ");
+				transferencia = lerDouble(sc);
+			}
+			catch(TransferenciaInvalidaException e) {
+				System.out.println("\n" + e.getMessage());
+				break;
 			}
 		}
 	}
