@@ -38,24 +38,7 @@ public class Main {
 
 				case 2:
 
-					boolean depositoRealizado = false;
-					System.out.println("Você escolheu: Depositar");
-					System.out.printf("Quanto você quer depositar? ");
-
-					double deposito = lerDouble(sc);
-
-					while (!depositoRealizado) {
-						try {
-							conta1.depositar(deposito);
-							depositoRealizado = true;
-						} catch (ValorInvalidoException e) {
-							System.out.println("\n" + e.getMessage());
-							System.out.printf("Quanto você quer depositar? ");
-
-							deposito = lerDouble(sc);
-						}
-					}
-
+					realizarDeposito(conta1, sc);
 					break;
 
 				case 3:
@@ -64,31 +47,11 @@ public class Main {
 						System.out.printf("%s - R$ %.2f%n", contas.getTipo(), contas.getValor());
 					}
 					break;
+					
+					
 
 				case 4:
-
-					boolean saqueRealizado = false;
-					System.out.println("Você escolheu: Sacar");
-					System.out.printf("Insira o valor de Saque: R$");
-					double saque = lerDouble(sc);
-
-					while (!saqueRealizado) {
-						try {
-							conta1.sacar(saque);
-							saqueRealizado = true;
-						} catch (ValorInvalidoException e) {
-							System.out.println("\n" + e.getMessage());
-							System.out.printf("Insira o valor de Saque: R$ ");
-
-							saque = lerDouble(sc);
-						} catch (SaldoInsuficienteException e) {
-							System.out.println("\n" + e.getMessage());
-							System.out.printf("Insira o valor de Saque: R$ ");
-
-							saque = lerDouble(sc);
-						}
-					}
-
+					realizarSaque(conta1, sc);
 					break;
 
 				default:
@@ -110,6 +73,11 @@ public class Main {
 		}
 	}
 
+	
+	
+	
+	
+	
 	private static double lerDouble(Scanner sc) {
 
 		while (!sc.hasNextDouble()) {
@@ -134,5 +102,49 @@ public class Main {
 	private static void exibirMenu() {
 		System.out.println(
 				"\nEscolha uma opção: \n1- Consultar Saldo \n2- Depositar \n3- Consultar extrato \n4- Sacar \n0- Sair");
+	}
+	
+	private static void realizarDeposito(Conta conta, Scanner sc) {
+		boolean depositoRealizado = false;
+		System.out.println("Você escolheu: Depositar");
+		System.out.printf("Quanto você quer depositar? ");
+
+		double deposito = lerDouble(sc);
+
+		while (!depositoRealizado) {
+			try {
+				conta.depositar(deposito);
+				depositoRealizado = true;
+			} catch (ValorInvalidoException e) {
+				System.out.println("\n" + e.getMessage());
+				System.out.printf("Quanto você quer depositar? ");
+
+				deposito = lerDouble(sc);
+			}
+		}
+	}
+	
+	private static void realizarSaque(Conta conta, Scanner sc) {
+		boolean saqueRealizado = false;
+		System.out.println("Você escolheu: Sacar");
+		System.out.printf("Insira o valor de Saque: R$");
+		double saque = lerDouble(sc);
+
+		while (!saqueRealizado) {
+			try {
+				conta.sacar(saque);
+				saqueRealizado = true;
+			} catch (ValorInvalidoException e) {
+				System.out.println("\n" + e.getMessage());
+				System.out.printf("Insira o valor de Saque: R$ ");
+
+				saque = lerDouble(sc);
+			} catch (SaldoInsuficienteException e) {
+				System.out.println("\n" + e.getMessage());
+				System.out.printf("Insira o valor de Saque: R$ ");
+
+				saque = lerDouble(sc);
+			}
+		}
 	}
 }
