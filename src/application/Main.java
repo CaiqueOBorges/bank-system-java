@@ -54,7 +54,10 @@ public class Main {
 			        	boolean depositoRealizado = false;
 			        	System.out.println("Você escolheu: Depositar");
 			        	System.out.printf("Quanto você quer depositar? ");
-			        	double deposito = sc.nextDouble();
+			        	
+			        
+			        	
+			        	double deposito = lerDouble(sc);
 			        	
 			        	
 			        	while (!depositoRealizado) {
@@ -64,7 +67,8 @@ public class Main {
 			        		}catch(ValorInvalidoException e) {
 			        			System.out.println("\n" + e.getMessage());
 			        			System.out.printf("Quanto você quer depositar? ");
-			        			deposito = sc.nextDouble();
+			        			
+			        			deposito = lerDouble(sc);
 			        		}
 			        	}
 			        	
@@ -92,7 +96,7 @@ public class Main {
 			        	boolean saqueRealizado = false;
 			        	System.out.println("Você escolheu: Sacar");
 			        	System.out.printf("Insira o valor de Saque: R$");
-			        	double saque = sc.nextDouble();
+			        	double saque = lerDouble(sc);
 			        	
 			        	
 			        	while (!saqueRealizado) {
@@ -102,12 +106,14 @@ public class Main {
 				        	}catch(ValorInvalidoException e) {
 				            	System.out.println("\n" + e.getMessage());
 				            	System.out.printf("Insira o valor de Saque: R$ ");
-					        	saque = sc.nextDouble();
+				            	
+				            	saque = lerDouble(sc);
 				            }
 				            catch(SaldoInsuficienteException e) {
 				            	System.out.println("\n" + e.getMessage());
 				            	System.out.printf("Insira o valor de Saque: R$ ");
-					            saque = sc.nextDouble();
+				            	
+				            	saque = lerDouble(sc);
 				            }
 			        	}
 			        	
@@ -150,5 +156,16 @@ public class Main {
     	catch(ContaDuplicadaException e) {
     		System.out.println(e.getMessage());
     	}
+    }
+    
+    private static double lerDouble(Scanner sc) {
+    	
+    	while(!sc.hasNextDouble()) {
+    		System.out.println("Digite um valor valido:");
+    		sc.nextLine();
+    	}
+    	
+		return sc.nextDouble();
+
     }
 }
