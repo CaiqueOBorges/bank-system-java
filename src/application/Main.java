@@ -74,8 +74,8 @@ public class Main {
 
 			}
 
-			System.out.println("Você saiu do sistema!");
-
+			
+			
 			sc.close();
 
 		} catch (ContaDuplicadaException e) {
@@ -117,14 +117,19 @@ public class Main {
 	private static void realizarDeposito(Conta conta, Scanner sc) {
 		boolean depositoRealizado = false;
 		System.out.println("Você escolheu: Depositar");
-		System.out.printf("Quanto você quer depositar? ");
+		System.out.printf("Insira o valor de Deposito: R$");
 
 		double deposito = lerDouble(sc);
 
 		while (!depositoRealizado) {
 			try {
-				conta.depositar(deposito);
-				depositoRealizado = true;
+				if(deposito == 0) {
+					System.out.println("Voltando para o Menu...");
+					depositoRealizado = true;
+				}else {
+					conta.depositar(deposito);
+					depositoRealizado = true;
+				}
 			} catch (ValorInvalidoException e) {
 				System.out.println("\n" + e.getMessage());
 				System.out.printf("Quanto você quer depositar? ");
@@ -142,8 +147,13 @@ public class Main {
 
 		while (!saqueRealizado) {
 			try {
-				conta.sacar(saque);
-				saqueRealizado = true;
+				if (saque == 0) {
+					System.out.println("Voltando para o Menu...");
+					saqueRealizado = true;
+				} else {
+					conta.sacar(saque);
+					saqueRealizado = true;
+				}
 			} catch (ValorInvalidoException e) {
 				System.out.println("\n" + e.getMessage());
 				System.out.printf("Insira o valor de Saque: R$ ");
@@ -164,15 +174,20 @@ public class Main {
 		
 		while(!transferenciaRealizada) {
 			try {
-				origem.transferir(destino, transferencia);
-				transferenciaRealizada = true;
+				if (transferencia == 0) {
+					System.out.println("Voltando para o Menu...");
+					transferenciaRealizada = true;
+				} else {
+					origem.transferir(destino, transferencia);
+					transferenciaRealizada = true;
+				}
 			}catch(ValorInvalidoException e) {
 				System.out.println("\n" + e.getMessage());
 				System.out.println("Insira um valor valido: ");
 				transferencia = lerDouble(sc);
 			}catch(SaldoInsuficienteException e) {
 				System.out.println("\n" + e.getMessage());
-				System.out.println("Saldo insuficiente: ");
+				System.out.println("Insira um valor valido: ");
 				transferencia = lerDouble(sc);
 			}
 			catch(TransferenciaInvalidaException e) {
