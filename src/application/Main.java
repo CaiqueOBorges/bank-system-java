@@ -1,5 +1,6 @@
 package application;
 
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 import entities.Cliente;
@@ -15,7 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		try {
-
+			
 			Banco banco = new Banco();
 			Cliente cliente1 = new Cliente("Joao", "1111111111");
 			Conta conta1 = new Conta(1001);
@@ -24,7 +25,8 @@ public class Main {
 			Cliente cliente2 = new Cliente("Maria", "22222222222");
 			Conta conta2 = new Conta(1002);
 			banco.cadastrarConta(cliente2, conta2);
-
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			Scanner sc = new Scanner(System.in);
 
 			System.out.printf("Bem vindo %s!", cliente1.getNome());
@@ -49,7 +51,10 @@ public class Main {
 				case 3:
 					System.out.println("Você escolheu: Consultar extrato");
 					for (Transacao contas : conta1.historicoTransacoes()) {
-						System.out.printf("%s - R$ %.2f%n", contas.getTipo(), contas.getValor());
+						System.out.printf("%s - R$ %.2f - %s%n", 
+								contas.getTipo(),
+								contas.getValor(), 
+								sdf.format(contas.getData()));
 					}
 					break;
 					
