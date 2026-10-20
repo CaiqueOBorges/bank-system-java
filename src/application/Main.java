@@ -38,8 +38,10 @@ public class Main {
 
 				switch (escolha) {
 				case 1:
+					Conta contaEscolhaCs = selecionarConta(sc, conta1, conta2);
+					
 					System.out.println("\nVocê escolheu: Consultar Saldo");
-					System.out.printf("Seu saldo é de: %.2f%n", conta1.consultarSaldo());
+					System.out.printf("Seu saldo é de: %.2f%n", contaEscolhaCs.consultarSaldo());
 
 					break;
 
@@ -49,8 +51,10 @@ public class Main {
 					break;
 
 				case 3:
+					Conta contaEscolhaE = selecionarConta(sc, conta1, conta2);
+					
 					System.out.println("Você escolheu: Consultar extrato");
-					for (Transacao contas : conta1.historicoTransacoes()) {
+					for (Transacao contas : contaEscolhaE.historicoTransacoes()) {
 						System.out.printf("%s - R$ %.2f - %s%n", 
 								contas.getTipo(),
 								contas.getValor(), 
@@ -198,6 +202,26 @@ public class Main {
 			catch(TransferenciaInvalidaException e) {
 				System.out.println("\n" + e.getMessage());
 				break;
+			}
+		}
+	}
+	
+	private static Conta selecionarConta(Scanner sc, Conta conta1, Conta conta2) {
+		
+		System.out.println("Escolha uma conta!");
+		int contaEscolha; 
+		
+		while (true) {
+			System.out.println("1- Joao \n2-Maria");
+			contaEscolha = lerInt(sc);
+			
+			if(contaEscolha == 1) {
+				return conta1;
+			}
+			else if(contaEscolha == 2) {
+				return conta2;
+			}else {
+				System.out.println("Opção invalida, tente novamente:\n");
 			}
 		}
 	}
