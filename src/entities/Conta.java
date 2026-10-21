@@ -13,6 +13,7 @@ public class Conta {
 	
 	private Integer numero;
 	private Double saldo = 0.0;
+	private Cliente cliente;
 	
 	private List<Transacao> transacoes = new ArrayList<>();
 	
@@ -34,8 +35,18 @@ public class Conta {
 	public double consultarSaldo() {
 		return saldo;
 	}
-
 	
+	
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+
 	public void depositar(double valor) throws ValorInvalidoException {
 		
 		if (valor <= 0) {

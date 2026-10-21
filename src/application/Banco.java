@@ -53,6 +53,7 @@ public class Banco {
 	
 	public void cadastrarConta(Cliente cliente, Conta conta) throws ContaDuplicadaException {
 		this.adicionarConta(conta);
+		conta.setCliente(cliente);
 		cliente.adicionarConta(conta);
 	}
 	

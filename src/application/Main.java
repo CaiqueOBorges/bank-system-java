@@ -6,6 +6,7 @@ import java.util.Scanner;
 import entities.Cliente;
 import entities.Conta;
 import entities.Transacao;
+import enums.TipoTransacao;
 import exception.ContaDuplicadaException;
 import exception.SaldoInsuficienteException;
 import exception.TransferenciaInvalidaException;
@@ -55,10 +56,29 @@ public class Main {
 					
 					System.out.println("Você escolheu: Consultar extrato");
 					for (Transacao contas : contaEscolhaE.historicoTransacoes()) {
+						
+					if(contas.getTipo() == TipoTransacao.PIX) {
+						if(contas.getContaOrigem() == contaEscolhaE) {
+							System.out.printf("%s Enviado para: %s - R$ %.2f - %s%n", 
+									contas.getTipo(), 
+									contas.getContaDestino().getCliente().getNome(), 
+									contas.getValor(), 
+									sdf.format(contas.getData()));
+						}else {
+						
+						System.out.printf("%s Recebido de: %s - R$ %.2f - %s%n", 
+								contas.getTipo(), 
+								contas.getContaOrigem().getCliente().getNome(), 
+								contas.getValor(), 
+								sdf.format(contas.getData()));
+						}
+						
+					} else {
 						System.out.printf("%s - R$ %.2f - %s%n", 
 								contas.getTipo(),
 								contas.getValor(), 
 								sdf.format(contas.getData()));
+						}
 					}
 					break;
 					
@@ -212,7 +232,7 @@ public class Main {
 		int contaEscolha; 
 		
 		while (true) {
-			System.out.println("1- Joao \n2-Maria");
+			System.out.println("1- Joao \n2- Maria");
 			contaEscolha = lerInt(sc);
 			
 			if(contaEscolha == 1) {
