@@ -52,39 +52,13 @@ public class Main {
 					break;
 
 				case 3:
-					Conta contaEscolhaE = selecionarConta(sc, conta1, conta2);
 					
-					System.out.println("Você escolheu: Consultar extrato");
-					for (Transacao contas : contaEscolhaE.historicoTransacoes()) {
-						
-					if(contas.getTipo() == TipoTransacao.PIX) {
-						if(contas.getContaOrigem() == contaEscolhaE) {
-							System.out.printf("%s Enviado para: %s - R$ %.2f - %s%n", 
-									contas.getTipo(), 
-									contas.getContaDestino().getCliente().getNome(), 
-									contas.getValor(), 
-									sdf.format(contas.getData()));
-						}else {
-						
-						System.out.printf("%s Recebido de: %s - R$ %.2f - %s%n", 
-								contas.getTipo(), 
-								contas.getContaOrigem().getCliente().getNome(), 
-								contas.getValor(), 
-								sdf.format(contas.getData()));
-						}
-						
-					} else {
-						System.out.printf("%s - R$ %.2f - %s%n", 
-								contas.getTipo(),
-								contas.getValor(), 
-								sdf.format(contas.getData()));
-						}
-					}
+					Conta contaEscolhaE = selecionarConta(sc, conta1, conta2);
+					consultarExtrato(contaEscolhaE, sdf);
 					break;
 					
-					
-
 				case 4:
+					
 					realizarSaque(conta1, sc);
 					break;
 					
@@ -242,6 +216,35 @@ public class Main {
 				return conta2;
 			}else {
 				System.out.println("Opção invalida, tente novamente:\n");
+			}
+		}
+	}
+	
+	private static void consultarExtrato(Conta conta, SimpleDateFormat sdf) {
+		System.out.println("Você escolheu: Consultar extrato");
+		for (Transacao contas : conta.historicoTransacoes()) {
+			
+		if(contas.getTipo() == TipoTransacao.PIX) {
+			if(contas.getContaOrigem() == conta) {
+				System.out.printf("%s Enviado para: %s - R$ %.2f - %s%n", 
+						contas.getTipo(), 
+						contas.getContaDestino().getCliente().getNome(), 
+						contas.getValor(), 
+						sdf.format(contas.getData()));
+			}else {
+			
+			System.out.printf("%s Recebido de: %s - R$ %.2f - %s%n", 
+					contas.getTipo(), 
+					contas.getContaOrigem().getCliente().getNome(), 
+					contas.getValor(), 
+					sdf.format(contas.getData()));
+			}
+			
+		} else {
+			System.out.printf("%s - R$ %.2f - %s%n", 
+					contas.getTipo(),
+					contas.getValor(), 
+					sdf.format(contas.getData()));
 			}
 		}
 	}
