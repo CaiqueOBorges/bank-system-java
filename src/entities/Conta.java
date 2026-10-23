@@ -28,9 +28,6 @@ public class Conta {
 		return numero;
 	}
 
-	public Double getSaldo() {
-		return saldo;
-	}
 	
 	public double consultarSaldo() {
 		return saldo;

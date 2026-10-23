@@ -56,7 +56,6 @@ public class Main {
 					Conta contaEscolhaE = selecionarConta(sc, conta1, conta2);
 					consultarExtrato(contaEscolhaE, sdf);
 					break;
-					
 				case 4:
 					
 					realizarSaque(conta1, sc);
