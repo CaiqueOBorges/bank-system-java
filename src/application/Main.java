@@ -34,6 +34,7 @@ public class Main {
 			exibirMenu();
 
 			int escolha = lerInt(sc);
+			
 
 			while (escolha != 0) {
 

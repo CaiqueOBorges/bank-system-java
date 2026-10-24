@@ -2,6 +2,7 @@ package testes;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import entities.Conta;
+import enums.TipoTransacao;
 import exception.SaldoInsuficienteException;
 import exception.TransferenciaInvalidaException;
 import exception.ValorInvalidoException;
@@ -108,6 +109,21 @@ public class ContaTest {
 			});
 		
 		assertEquals(100.0, conta.consultarSaldo());
+	}
+	
+	@Test
+	public void transferenciaRegistrarTransacao() throws ValorInvalidoException, SaldoInsuficienteException, TransferenciaInvalidaException {
+		Conta conta = new Conta(1012);
+		Conta conta2 = new Conta(1013);
+		conta.depositar(100.0);
+		conta2.depositar(50.0);
+		
+		conta.transferir(conta2, 30.0);
+		
+		assertEquals(70.0, conta.consultarSaldo());
+		assertEquals(80.0, conta2.consultarSaldo());
+		assertEquals(TipoTransacao.PIX, conta.historicoTransacoes().get(1).getTipo());
+		assertEquals(TipoTransacao.PIX, conta2.historicoTransacoes().get(1).getTipo());
 	}
 }
 
