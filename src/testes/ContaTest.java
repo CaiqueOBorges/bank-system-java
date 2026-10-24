@@ -125,6 +125,22 @@ public class ContaTest {
 		assertEquals(TipoTransacao.PIX, conta.historicoTransacoes().get(1).getTipo());
 		assertEquals(TipoTransacao.PIX, conta2.historicoTransacoes().get(1).getTipo());
 	}
+	
+	@Test 
+	public void depositoZeroDeveLancarExcecao() {
+		Conta conta = new Conta(1014);
+		
+		assertThrows(ValorInvalidoException.class, () ->{
+		conta.depositar(0);});
+	}
+	
+	@Test 
+	public void saqueZeroDeveLancarExcecao() {
+		Conta conta = new Conta(1014);
+		
+		assertThrows(ValorInvalidoException.class, () ->{
+		conta.sacar(0);});
+	}
 }
 
 
